@@ -1,0 +1,113 @@
+body, html { min-height: 100%; }
+body {
+background: -webkit-linear-gradient(left,#222831,#393E46);
+background: -moz-linear-gradient(left,#222831,#393E46);
+    background: linear-gradient(left,#222831,#393E46);
+}
+
+.logo{
+    font-family: 'Hamuraz';
+    font-size: 50px;
+    color: #EA5455;
+    display: block;
+    margin: 2% 40%;
+    text-decoration: none;
+    transition: padding-top 1s;
+}
+
+.logo:hover{
+    color:  white;
+    text-decoration: line-through;
+    transition: all 1s;
+}
+
+.container {
+    overflow: hidden;
+    width: 600px;
+    height: 600px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    display: block;
+}
+
+ul
+{
+    margin: 0;
+    padding: 0;
+}
+li {
+    height: 200px;
+    width: 200px;
+    float: left;
+    list-style-type: none;
+    color: white;
+    font-size:100px;
+    line-height: 200px;
+    text-align: center;
+    cursor:pointer;
+    font-family: 'Bold ones';
+    -webkit-user-select: none;  
+    -moz-user-select: none;     
+    -ms-user-select: none;      
+    user-select: none;
+    display: block;
+}
+
+li:hover{
+    background:#66D37E;
+    transition: background 1s;
+}
+
+.clear{
+    background: #FF5722 ;
+    width: 150px;
+    outline: none;
+    border: 0;
+    font-size: 20px;
+    color: WHITE;
+    padding: 15px 10px;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 2%;
+    border-radius: 8px;
+}
+
+.clear:hover{
+    background:#FFB200;
+    transition: background 1s;
+}
+
+@media screen and (max-width:450px)
+{
+    .logo{
+        font-size: 40px;
+    }
+    
+    .container
+    {
+        width: auto;
+        height: 50%;
+    }
+    li
+    {
+        width: 120px;
+        height: 120px;
+        
+    }
+}
+
+@font-face{
+    font-family: 'Bold ones';
+    src: url('../fonts/Lumberjack.otf');  
+}
+
+@font-face{
+    font-family: 'Hamuraz';
+    src: url('../fonts/Hamurz.otf'); 
+}
+
+
+.btns {
+    display: block;
+    margin: 1% 0;
+}
