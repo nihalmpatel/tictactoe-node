@@ -1,33 +1,65 @@
-var count=false;
 var currentId=0;
 var currentIndex=0;
-var data=["","","","","","","","","",""];
+var moves=["","","","","","","","","",""];
 var socket = io();
+var roomno;
+var userselectedval;
+var turn='X';
 
-function setValue(id,index){
-   
-    if( data[index]=="X" || data[index]=="0" )
+while(!userselectedval){
+    userselectedval = prompt("Please choose X/0 :").toUpperCase();
+    if(!(userselectedval == 'X' || userselectedval == 'x' || userselectedval == '0')){
+        continue;
+    }
+}
+
+socket.on('connectToRoom',function(data){
+    roomno=data;
+    console.log('data:'+data);
+});
+
+socket.on('setval',function(data){
+    if(data.val==='X'){
+        moves[data.index]="X";
+    }
+    if(data.val==='0'){
+        moves[data.index]="0";
+    }
+    turn=data.turn;
+    result(data.val);
+    $("#tile"+data.index.toString()).text(data.val);
+});
+
+
+function setValue(id,index){ 
+
+    if( moves[index]=="X" || moves[index]=="0" )
     {
         alert("This area is already filled!");   
+    }
+
+    if( turn=='X' && userselectedval=='0' || turn=='0' && userselectedval=='X')
+    {
+        alert("Its not your turn!");
     }
     
     else{
         currentId=id;
         currentIndex=index;
         
-        if(count) {
+        if(userselectedval== 'X') {
             $(id).text("X");
-            data[index]="X";
-            count=false;
+            moves[index]="X";
             result("X");
-            socket.emit('set-x',currentIndex);
+            turn='0';
+            socket.emit('setval',{val: 'X', index: currentIndex, roomno: roomno, turn: turn});
         }
         else {
             $(id).text("0");
-            data[index]="0";
-            count=true;
+            moves[index]="0";
             result("0");
-            socket.emit('set-0',currentIndex);
+            turn='X';
+            socket.emit('setval',{val: '0', index: currentIndex, roomno: roomno, turn: turn});
         }
         
     }
@@ -38,35 +70,26 @@ function clearValues(){
         $("#tile"+i.toString()).text("");
     }
     count=false;
-    data=[];
+    moves=[];
 }
 
 function undoValue(){
     $(currentId).text("");
-    data[currentIndex]="";
+    moves[currentIndex]="";
     count=!count;
 }
 
 function result(val){
-    if( (data[1]==val && data[2]==val && data[3]==val) || (data[1]==val && data[4]==val && data[7]==val) || (data[1]==val && data[5]==val && data[9]==val) || (data[2]==val && data[5]==val && data[8]==val) || (data[3]==val && data[6]==val && data[9]==val) || (data[3]==val && data[5]==val && data[7]==val) || (data[4]==val && data[5]==val && data[6]==val) || (data[7]==val && data[8]==val && data[9]==val) || (data[1]==val && data[5]==val && data[9]==val)  )
+    if( (moves[1]==val && moves[2]==val && moves[3]==val) || (moves[1]==val && moves[4]==val && moves[7]==val) || (moves[1]==val && moves[5]==val && moves[9]==val) || (moves[2]==val && moves[5]==val && moves[8]==val) || (moves[3]==val && moves[6]==val && moves[9]==val) || (moves[3]==val && moves[5]==val && moves[7]==val) || (moves[4]==val && moves[5]==val && moves[6]==val) || (moves[7]==val && moves[8]==val && moves[9]==val) || (moves[1]==val && moves[5]==val && moves[9]==val)  )
     {
             alert(val+" WON!");
             clearValues();
+            location.reload();
     }
     
-    else if( (data[1]=="X" || data[1]=="0") && (data[2]=="X" || data[2]=="0") && (data[3]=="X" || data[3]=="0") && (data[4]=="X" || data[4]=="0") && (data[5]=="X" || data[5]=="0") && (data[6]=="X" || data[6]=="0") && (data[7]=="X" || data[7]=="0") && (data[8]=="X" || data[8]=="0") && (data[9]=="X" || data[9]=="0") ){
+    else if( (moves[1]=="X" || moves[1]=="0") && (moves[2]=="X" || moves[2]=="0") && (moves[3]=="X" || moves[3]=="0") && (moves[4]=="X" || moves[4]=="0") && (moves[5]=="X" || moves[5]=="0") && (moves[6]=="X" || moves[6]=="0") && (moves[7]=="X" || moves[7]=="0") && (moves[8]=="X" || moves[8]=="0") && (moves[9]=="X" || moves[9]=="0") ){
         alert("TIE!");
         clearValues();
     }
     
-}
-
-/*function checkValues(){
-    for(i=1;i<9;i++){
-        if( (data[i]=="X" || data[i]=="0") && checkValues() ) {
-            return true;
-        }
-    }
-    return false;
-} */
-               
+}               

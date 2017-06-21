@@ -6,43 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>The X-0 Game</title>
 	<link rel="stylesheet" href="css/main.css"  />
-    <script src="js/logic.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-        var socket = io();
-        socket.on('set-x',function(val){
-            $("#tile"+val.toString()).text("X");
-        });
-
-        socket.on('set-0',function(val){
-            $("#tile"+val.toString()).text("0");
-        });
-
-    </script>
+    <script src="js/logic.js"></script>
 </head>
 <body>
-    <center>
-    <a class="logo" href="#"> The X-0 Game </a>
-    </center>
     <div class="container">
-        <ul>
-            <li id="tile1" onClick="setValue(tile1,1)"></li>
-            <li id="tile2" onClick="setValue(tile2,2)"></li>
-            <li id="tile3" onClick="setValue(tile3,3)"></li>
-            <li id="tile4" onClick="setValue(tile4,4)"></li>
-            <li id="tile5" onClick="setValue(tile5,5)"></li>
-            <li id="tile6" onClick="setValue(tile6,6)"></li>
-            <li id="tile7" onClick="setValue(tile7,7)"></li>
-            <li id="tile8" onClick="setValue(tile8,8)"></li>
-            <li id="tile9" onClick="setValue(tile9,9)"></li>
-        </ul>     
+        <a class="logo" href="#"> The X-0 Game </a>
+            <ul>
+                <li id="tile1" onClick="setValue(tile1,1)"></li>
+                <li id="tile2" onClick="setValue(tile2,2)"></li>
+                <li id="tile3" onClick="setValue(tile3,3)"></li>
+                <li id="tile4" onClick="setValue(tile4,4)"></li>
+                <li id="tile5" onClick="setValue(tile5,5)"></li>
+                <li id="tile6" onClick="setValue(tile6,6)"></li>
+                <li id="tile7" onClick="setValue(tile7,7)"></li>
+                <li id="tile8" onClick="setValue(tile8,8)"></li>
+                <li id="tile9" onClick="setValue(tile9,9)"></li>
+            </ul>     
+        
+        <div class="btns">
+            <button class="clear" onClick="clearValues()">Reset</button>
+            <button class="clear" onClick="undoValue()">Undo</button>
+        </div>
     </div>
-    <center>
-    <div class="btns">
-        <button class="clear" onClick="clearValues()">Reset</button>
-        <button class="clear" onClick="undoValue()">Undo</button>
-    </div>
-    </center>
 </body>
 </html>
